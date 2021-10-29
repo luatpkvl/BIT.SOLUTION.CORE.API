@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BIT.SOLUTION.BaseApi\BIT.SOLUTION.BaseApi.csproj" />
+    <ProjectReference Include="..\BIT.SOLUTION.BL\BIT.SOLUTION.SERVICE.csproj" />
+    <ProjectReference Include="..\BIT.SOLUTION.DbHepper\BIT.SOLUTION.DbHepper.csproj" />
+    <ProjectReference Include="..\BIT.SOLUTION.DL\BIT.SOLUTION.DL.csproj" />
+  </ItemGroup>
+
+</Project>
