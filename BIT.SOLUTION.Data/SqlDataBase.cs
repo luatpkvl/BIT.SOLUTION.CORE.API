@@ -5,15 +5,15 @@ using System.Data.SqlClient;
 
 namespace BIT.SOLUTION.Data
 {
-    public class MySqlDataBase
+    public class SqlDataBase
     {
         private string _connectionString;
         private SqlConnection _connection;
-        public MySqlDataBase()
+        public SqlDataBase()
         {
 
         }
-        public MySqlDataBase(string connectionString)
+        public SqlDataBase(string connectionString)
         {
             this._connectionString = connectionString;
         }
@@ -271,7 +271,7 @@ namespace BIT.SOLUTION.Data
                 this._connection.Close();
             }
         }
-        ~MySqlDataBase()
+        ~SqlDataBase()
         {
             Dispose();
         }

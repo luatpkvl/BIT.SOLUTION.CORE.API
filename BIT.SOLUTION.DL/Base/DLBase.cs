@@ -62,7 +62,7 @@ namespace BIT.SOLUTION.DL
                 this._unitOfWork = value;
             }
         }
-        public virtual MySqlDataBase DB
+        public virtual SqlDataBase DB
         {
             get
             {

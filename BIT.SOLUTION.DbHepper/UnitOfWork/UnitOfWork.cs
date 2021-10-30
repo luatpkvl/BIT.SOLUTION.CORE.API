@@ -17,7 +17,7 @@ namespace BIT.SOLUTION.DbHepper
     public class UnitOfWork : IUnitOfWork
     {
         private static Dictionary<string, List<Columns>> disSchemas = new Dictionary<string, List<Columns>>();
-        private MySqlDataBase msqlDB = null;
+        private SqlDataBase msqlDB = null;
         private string _connectionString = string.Empty;
         public string ConnectionString {
             get
@@ -31,7 +31,7 @@ namespace BIT.SOLUTION.DbHepper
         }
         private SqlConnection connection = null;
         private SqlTransaction transaction  = null;
-        public MySqlDataBase DB {
+        public SqlDataBase DB {
             get
             {
                 if(msqlDB == null)
@@ -40,7 +40,7 @@ namespace BIT.SOLUTION.DbHepper
                     {
                         this._connectionString = @"Data Source=localhost;Initial Catalog=chatrealtime;Integrated Security=True";// ham get connection
                     }
-                    msqlDB = new MySqlDataBase(this._connectionString);
+                    msqlDB = new SqlDataBase(this._connectionString);
                 }
                 return msqlDB;
             }

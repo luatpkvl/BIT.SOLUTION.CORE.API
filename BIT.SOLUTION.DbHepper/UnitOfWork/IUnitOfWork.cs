@@ -17,7 +17,7 @@ namespace BIT.SOLUTION.DbHepper
         {
             set;get;
         }
-        MySqlDataBase DB
+        SqlDataBase DB
         {
             get;
         }
