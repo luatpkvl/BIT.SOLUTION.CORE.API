@@ -9,8 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BIT.SOLUTION.BO\BIT.SOLUTION.MODEL.csproj" />
     <ProjectReference Include="..\BIT.SOLUTION.DbHepper\BIT.SOLUTION.DbHepper.csproj" />
+    <ProjectReference Include="..\BIT.SOLUTION.MODEL\BIT.SOLUTION.MODEL.csproj" />
   </ItemGroup>
 
 </Project>

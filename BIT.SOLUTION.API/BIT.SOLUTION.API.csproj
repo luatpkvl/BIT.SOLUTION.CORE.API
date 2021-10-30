@@ -10,9 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BIT.SOLUTION.BaseApi\BIT.SOLUTION.BaseApi.csproj" />
-    <ProjectReference Include="..\BIT.SOLUTION.BL\BIT.SOLUTION.SERVICE.csproj" />
     <ProjectReference Include="..\BIT.SOLUTION.DbHepper\BIT.SOLUTION.DbHepper.csproj" />
-    <ProjectReference Include="..\BIT.SOLUTION.DL\BIT.SOLUTION.DL.csproj" />
   </ItemGroup>
 
 </Project>

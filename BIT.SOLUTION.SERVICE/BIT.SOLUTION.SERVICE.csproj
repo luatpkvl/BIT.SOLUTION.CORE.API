@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BIT.SOLUTION.BO\BIT.SOLUTION.MODEL.csproj" />
     <ProjectReference Include="..\BIT.SOLUTION.DL\BIT.SOLUTION.DL.csproj" />
     <ProjectReference Include="..\BIT.SOLUTION.Lib\BIT.SOLUTION.Lib.csproj" />
+    <ProjectReference Include="..\BIT.SOLUTION.MODEL\BIT.SOLUTION.MODEL.csproj" />
   </ItemGroup>
 
 </Project>

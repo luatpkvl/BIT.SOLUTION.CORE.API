@@ -9,9 +9,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BIT.SOLUTION.BL\BIT.SOLUTION.SERVICE.csproj" />
-    <ProjectReference Include="..\BIT.SOLUTION.BO\BIT.SOLUTION.MODEL.csproj" />
     <ProjectReference Include="..\BIT.SOLUTION.DL\BIT.SOLUTION.DL.csproj" />
+    <ProjectReference Include="..\BIT.SOLUTION.MODEL\BIT.SOLUTION.MODEL.csproj" />
+    <ProjectReference Include="..\BIT.SOLUTION.SERVICE\BIT.SOLUTION.SERVICE.csproj" />
   </ItemGroup>
 
 </Project>
