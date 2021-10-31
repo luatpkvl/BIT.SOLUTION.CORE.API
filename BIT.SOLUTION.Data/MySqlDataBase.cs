@@ -269,7 +269,7 @@ namespace BIT.SOLUTION.Data
                 this._connection.Close();
             }
         }
-        ~SqlDataBase()
+        ~MySqlDataBase()
         {
             Dispose();
         }
