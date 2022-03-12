@@ -16,7 +16,7 @@ namespace BIT.SOLUTION.BaseApi
         }
         [HttpGet]
         [Route("list")]
-        public ServiceResult List()
+        public virtual ServiceResult List()
         {
             ServiceResult result = new ServiceResult()
             {
@@ -36,7 +36,7 @@ namespace BIT.SOLUTION.BaseApi
         }
         [HttpGet]
         [Route("get")]
-        public ServiceResult Get()
+        public virtual ServiceResult Get()
         {
             ServiceResult result = new ServiceResult()
             {
@@ -53,12 +53,12 @@ namespace BIT.SOLUTION.BaseApi
             return result;
         }
         [HttpPost]
-        public ServiceResult Post(T  entity)
+        public virtual ServiceResult Post(T  entity)
         {
             return _service.SaveData<T>(entity);
         }
         [HttpPut]
-        public ServiceResult Put(T entity)
+        public virtual ServiceResult Put(T entity)
         {
             entity.UserProc = false;
             entity.BITEntityState = Lib.Enum.Enumeration.BITEntityState.Edit;
@@ -67,7 +67,7 @@ namespace BIT.SOLUTION.BaseApi
             return result;
         }
         [HttpDelete]
-        public ServiceResult Delete(T entity)
+        public virtual ServiceResult Delete(T entity)
         {
             entity.UserProc = false;
             entity.BITEntityState = Lib.Enum.Enumeration.BITEntityState.Delete;

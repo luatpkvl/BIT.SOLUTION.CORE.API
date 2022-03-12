@@ -1,4 +1,5 @@
 ﻿using BIT.SOLUTION.BaseApi;
+using BIT.SOLUTION.Lib;
 using BIT.SOLUTION.MODEL;
 using BIT.SOLUTION.SERVICE;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,10 @@ namespace BIT.SOLUTION.API.Controllers
         {
             _service = service;
         }
-       
+        public override ServiceResult List()
+        {
+            return base.List();
+        }
+
     }
 }
