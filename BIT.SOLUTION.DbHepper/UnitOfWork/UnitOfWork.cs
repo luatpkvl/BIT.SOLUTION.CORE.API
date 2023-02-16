@@ -17,7 +17,7 @@ namespace BIT.SOLUTION.DbHepper
     public class UnitOfWork : IUnitOfWork
     {
         private static Dictionary<string, List<Columns>> disSchemas = new Dictionary<string, List<Columns>>();
-        private SqlDataBase msqlDB = null;
+        private MySqlDataBase msqlDB = null;
         private string _connectionString = string.Empty;
         public string ConnectionString {
             get
@@ -29,18 +29,18 @@ namespace BIT.SOLUTION.DbHepper
                 _connectionString = value;
             }
         }
-        private SqlConnection connection = null;
-        private SqlTransaction transaction  = null;
-        public SqlDataBase DB {
+        private MySqlConnection connection = null;
+        private MySqlTransaction transaction  = null;
+        public MySqlDataBase DB {
             get
             {
                 if(msqlDB == null)
                 {
                     if(string.IsNullOrEmpty(this._connectionString))
                     {
-                        this._connectionString = @"Data Source=localhost;Initial Catalog=chatrealtime;Integrated Security=True";// ham get connection
+                        this._connectionString = @"server=192.168.1.133;user=root;database=Employee_db;password=rootpw;";// ham get connection
                     }
-                    msqlDB = new SqlDataBase(this._connectionString);
+                    msqlDB = new MySqlDataBase(this._connectionString);
                 }
                 return msqlDB;
             }
@@ -57,10 +57,10 @@ namespace BIT.SOLUTION.DbHepper
         {
             if (string.IsNullOrEmpty(this._connectionString))
             {
-                this._connectionString = @"Data Source=localhost;Initial Catalog=chatrealtime;Integrated Security=True"; // Hàm lấy connection
+                this._connectionString = @"server=192.168.1.133;user=root;database=Employee_db;password=rootpw;"; // Hàm lấy connection
             }
         }
-        public SqlConnection DbConnection
+        public MySqlConnection DbConnection
         {
             get
             {
@@ -102,7 +102,7 @@ namespace BIT.SOLUTION.DbHepper
             }
         }
         
-        public bool ExecuteNoneQueryCmd(SqlCommand cmd)
+        public bool ExecuteNoneQueryCmd(MySqlCommand cmd)
         {
             bool success = true;
             if(transaction != null)
@@ -116,7 +116,7 @@ namespace BIT.SOLUTION.DbHepper
             return success;
         }
 
-        public SqlDataReader ExecuteRenderCmd(SqlCommand cmd)
+        public MySqlDataReader ExecuteRenderCmd(MySqlCommand cmd)
         {
             bool success = true;
             if (transaction != null)
@@ -131,7 +131,7 @@ namespace BIT.SOLUTION.DbHepper
 
         public object ExecuteScalar(string query, Dictionary<string, object> param, CommandType? commandType = CommandType.Text, int? timeOut = 150)
         {
-            SqlCommand cmd = null;
+            MySqlCommand cmd = null;
             try
             {
                 object rs = null;
@@ -168,7 +168,7 @@ namespace BIT.SOLUTION.DbHepper
 
         public object ExecuteScalar(string query, object param = null, CommandType? commandType = CommandType.Text, int? timeOut = 150)
         {
-            SqlCommand cmd = null;
+            MySqlCommand cmd = null;
             try
             {
                 object rs = null;
@@ -203,7 +203,7 @@ namespace BIT.SOLUTION.DbHepper
             }
         }
 
-        public object ExecuteScalarCmd(SqlCommand cmd)
+        public object ExecuteScalarCmd(MySqlCommand cmd)
         {
            if(transaction != null)
             {
@@ -217,7 +217,7 @@ namespace BIT.SOLUTION.DbHepper
 
         public object GetFistOrDefaultID(string query, Dictionary<string, object> param, CommandType? commandType = CommandType.Text, int? timeOut = 150)
         {
-            SqlCommand cmd = null;
+            MySqlCommand cmd = null;
             try
             {
                 cmd = CreateCommand();
@@ -244,7 +244,7 @@ namespace BIT.SOLUTION.DbHepper
         }
         public DataTable GetDataTable(string query, Dictionary<string, object> param, CommandType? commandType = CommandType.Text, int? timeOut = 150)
         {
-            SqlCommand cmd = null;
+            MySqlCommand cmd = null;
             try
             {
                 cmd = CreateCommand();
@@ -258,7 +258,7 @@ namespace BIT.SOLUTION.DbHepper
                 {
                     cmd.Transaction = transaction;
                 }
-                using(SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                using(MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
                 {
                     adapter.Fill(dt);
                 }
@@ -277,7 +277,7 @@ namespace BIT.SOLUTION.DbHepper
 
         public DataTable GetDataTable(string query, object param, CommandType? commandType = CommandType.Text, int? timeOut = 150)
         {
-            SqlCommand cmd = null;
+            MySqlCommand cmd = null;
             try
             {
                 cmd = CreateCommand();
@@ -291,7 +291,7 @@ namespace BIT.SOLUTION.DbHepper
                 {
                     cmd.Transaction = transaction;
                 }
-                using (SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
                 {
                     adapter.Fill(dt);
                 }
@@ -308,14 +308,24 @@ namespace BIT.SOLUTION.DbHepper
             }
         }
 
-        public SqlCommand GetStoreProcCommand(string storeName, object[] parameterValue)
+        public MySqlCommand GetStoreProcCommand(string storeName, object[] parameterValue)
         {
            if(connection == null)
             {
                 CreateConn();
             }
             OpenConn();
-            SqlCommand cmd = this.DB.GetStoreProcCommand(storeName, parameterValue);
+            MySqlCommand cmd = this.DB.GetStoreProcCommand(storeName, parameterValue);
+            return cmd;
+        }
+        public MySqlCommand GetCommandText(string cm, object[] parameterValue)
+        {
+            if (connection == null)
+            {
+                CreateConn();
+            }
+            OpenConn();
+            MySqlCommand cmd = this.DB.GetStoreProcCommand(cm, parameterValue);
             return cmd;
         }
 
@@ -328,7 +338,7 @@ namespace BIT.SOLUTION.DbHepper
         }
 
       
-        public void AddWithValue(SqlCommand cmd, string paramaterName, object value)
+        public void AddWithValue(MySqlCommand cmd, string paramaterName, object value)
         {
             if(value != null)
             {
@@ -350,11 +360,11 @@ namespace BIT.SOLUTION.DbHepper
 
 
 
-        public SqlCommand CreateCommand()
+        public MySqlCommand CreateCommand()
         {
             CreateConn();
             OpenConn();
-            SqlCommand cmd = this.connection.CreateCommand();
+            MySqlCommand cmd = this.connection.CreateCommand();
             return cmd;
         }
 
@@ -394,7 +404,7 @@ namespace BIT.SOLUTION.DbHepper
 
         public int Execute(string query, Dictionary<string, object> param, CommandType? commandType = CommandType.Text, int? timeOut = 150)
         {
-            SqlCommand cmd = null;
+            MySqlCommand cmd = null;
             try
             {
                 int rs = -1;
@@ -431,7 +441,7 @@ namespace BIT.SOLUTION.DbHepper
 
         public int Execute(string query, object param = null, CommandType? commandType = CommandType.Text, int? timeOut = 150)
         {
-            SqlCommand cmd = null;
+            MySqlCommand cmd = null;
             try
             {
                 int rs = -1;
@@ -1145,7 +1155,7 @@ namespace BIT.SOLUTION.DbHepper
         /// <param name="param"></param>
         /// <param name="cmd"></param>
         /// <param name="indexOutputParams"></param>
-        private void MappingParamsDictionary(Dictionary<string, object> param ,SqlCommand cmd, ref Dictionary<int, string> indexOutputParams)
+        private void MappingParamsDictionary(Dictionary<string, object> param ,MySqlCommand cmd, ref Dictionary<int, string> indexOutputParams)
         {
             if(param == null || param.Count ==0)
             {
@@ -1169,7 +1179,7 @@ namespace BIT.SOLUTION.DbHepper
         /// <param name="dicParam"></param>
         /// <param name="cmd"></param>
         /// <param name="indexOutputParams"></param>
-        private void MappingParamsDictionaryWithParamStore(Dictionary<string, object> dicParam, SqlCommand cmd, ref Dictionary<int, string> indexOutputParams)
+        private void MappingParamsDictionaryWithParamStore(Dictionary<string, object> dicParam, MySqlCommand cmd, ref Dictionary<int, string> indexOutputParams)
         {
             this.DB.DiscoverParameters(cmd);
             int totalParams = cmd.Parameters.Count;
@@ -1198,7 +1208,7 @@ namespace BIT.SOLUTION.DbHepper
         /// <param name="entity"></param>
         /// <param name="cmd"></param>
         /// <param name="indexOutputParams"></param>
-        private void MappingParamsDictionaryWithParamStore(object entity, SqlCommand cmd, ref Dictionary<int, string> indexOutputParams)
+        private void MappingParamsDictionaryWithParamStore(object entity, MySqlCommand cmd, ref Dictionary<int, string> indexOutputParams)
         {
             this.DB.DiscoverParameters(cmd);
             int totalParams = cmd.Parameters.Count;
@@ -1236,7 +1246,7 @@ namespace BIT.SOLUTION.DbHepper
         /// <param name="param"></param>
         /// <param name="cmd"></param>
         /// <param name="indexOutputParams"></param>
-        private void MappingParamsObject(object param, SqlCommand cmd, ref Dictionary<int, string> indexOutputParams)
+        private void MappingParamsObject(object param, MySqlCommand cmd, ref Dictionary<int, string> indexOutputParams)
         {
             if(param == null)
             {
@@ -1263,7 +1273,7 @@ namespace BIT.SOLUTION.DbHepper
         /// <param name="param"></param>
         /// <param name="cmd"></param>
         /// <param name="indexOutputParams"></param>
-        private void SetOutPutParamsObject(object param, SqlCommand cmd, Dictionary<int,string> indexOutputParams)
+        private void SetOutPutParamsObject(object param, MySqlCommand cmd, Dictionary<int,string> indexOutputParams)
         {
             if(param == null || indexOutputParams.Count ==0)
             {
@@ -1281,7 +1291,7 @@ namespace BIT.SOLUTION.DbHepper
         /// <param name="dicParam"></param>
         /// <param name="cmd"></param>
         /// <param name="indexOutputParams"></param>
-        private void SetOutPutParamsDictionary(Dictionary<string, object> dicParam, SqlCommand cmd, Dictionary<int, string> indexOutputParams)
+        private void SetOutPutParamsDictionary(Dictionary<string, object> dicParam, MySqlCommand cmd, Dictionary<int, string> indexOutputParams)
         {
 
             if (dicParam == null || dicParam.Count == 0)
@@ -1438,15 +1448,15 @@ namespace BIT.SOLUTION.DbHepper
 
         public List<T> QueryCustom<T>(string query, object param = null)
         {
-            SqlDataReader rd = null;
-            SqlCommand cmd = null;
-            SqlConnection  connectionNyConnectionName= null;
+            MySqlDataReader rd = null;
+            MySqlCommand cmd = null;
+            MySqlConnection connectionNyConnectionName = null;
             try
             {
                 var connectionString = "";
-                connectionNyConnectionName = new SqlConnection(connectionString);
+                connectionNyConnectionName = new MySqlConnection(connectionString);
                 connectionNyConnectionName.Open();
-                cmd = new SqlCommand(query, connectionNyConnectionName);
+                cmd = new MySqlCommand(query, connectionNyConnectionName);
                 Dictionary<int, string> indexOutputParams = new Dictionary<int, string>();
                 MappingParamsObject(param, cmd, ref indexOutputParams);
                 rd = cmd.ExecuteReader();
@@ -1469,8 +1479,8 @@ namespace BIT.SOLUTION.DbHepper
 
         public void ProcessIDataRender(string query, Action<IDataReader> action, Dictionary<string, object> param, CommandType? commandType = CommandType.Text, int? timeOut = 150)
         {
-            SqlDataReader rd = null;
-            SqlCommand cmd = null;
+            MySqlDataReader rd = null;
+            MySqlCommand cmd = null;
             try
             {
                 cmd = CreateCommand();
@@ -1502,8 +1512,8 @@ namespace BIT.SOLUTION.DbHepper
 
         public void ProcessIDataRender(string query, Action<IDataReader> action, object param, CommandType? commandType = CommandType.Text, int? timeOut = 150)
         {
-            SqlDataReader rd = null;
-            SqlCommand cmd = null;
+            MySqlDataReader rd = null;
+            MySqlCommand cmd = null;
             try
             {
                 cmd = CreateCommand();
@@ -1535,8 +1545,8 @@ namespace BIT.SOLUTION.DbHepper
 
         public int BulkInsertMySQL(DataTable table, string tableName, string colums = "*", int? timeOut = 150)
         {
-            SqlDataReader rd = null;
-            SqlCommand cmd = null;
+            MySqlDataReader rd = null;
+            MySqlCommand cmd = null;
             int row = -1;
             try
             {
@@ -1551,10 +1561,10 @@ namespace BIT.SOLUTION.DbHepper
                 {
                     cmd.Transaction = transaction;
                 }
-                using(SqlDataAdapter adapter = new SqlDataAdapter(cmd))
+                using(MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
                 {
                     adapter.UpdateBatchSize = 10000;
-                    using (SqlCommandBuilder cb = new SqlCommandBuilder(adapter))
+                    using (MySqlCommandBuilder cb = new MySqlCommandBuilder(adapter))
                     {
                         cb.SetAllValues = true;
                         row = adapter.Update(table);
@@ -1574,8 +1584,8 @@ namespace BIT.SOLUTION.DbHepper
 
         public bool BulkUpdateMySQL(DataTable table, string tableName, string primaryKeyName, string colums = "*", int? timeOut = 150)
         {
-            SqlDataReader rd = null;
-            SqlCommand cmd = null;
+            MySqlDataReader rd = null;
+            MySqlCommand cmd = null;
             try
             {
                 if(SecureUtil.DetectSqlInjection(primaryKeyName))

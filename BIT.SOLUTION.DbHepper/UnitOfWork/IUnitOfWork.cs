@@ -1,8 +1,10 @@
 ﻿using BIT.SOLUTION.Data;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace BIT.SOLUTION.DbHepper
@@ -13,10 +15,11 @@ namespace BIT.SOLUTION.DbHepper
         {
             set;get;
         }
-        SqlDataBase DB
+        MySqlDataBase DB
         {
             get;
         }
+        MySqlCommand GetCommandText(string cm, object[] parameterValue);
         /// <summary>
         /// trả về đơn giá trị
         /// vkdien :24/10/2021
@@ -132,26 +135,26 @@ namespace BIT.SOLUTION.DbHepper
         /// </summary>
         /// <param name="cmd"></param>
         /// <returns></returns>
-        bool ExecuteNoneQueryCmd(SqlCommand cmd);
+        bool ExecuteNoneQueryCmd(MySqlCommand cmd);
         /// <summary>
         /// trả về 1 datarneder
         /// </summary>
         /// <param name="cmd"></param>
         /// <returns></returns>
-        SqlDataReader ExecuteRenderCmd(SqlCommand cmd);
+        MySqlDataReader ExecuteRenderCmd(MySqlCommand cmd);
         /// <summary>
         /// Trả về đơn giá trị
         /// </summary>
         /// <param name="cmd"></param>
         /// <returns></returns>
-        object ExecuteScalarCmd(SqlCommand cmd);
+        object ExecuteScalarCmd(MySqlCommand cmd);
         /// <summary>
         /// tạo command theo store và tham số
         /// </summary>
         /// <param name="storeName"></param>
         /// <param name="parameterValue"></param>
         /// <returns></returns>
-        SqlCommand  GetStoreProcCommand(string storeName, object[] parameterValue);
+        MySqlCommand  GetStoreProcCommand(string storeName, object[] parameterValue);
         /// <summary>
         /// tạo trấnction
         /// </summary>
@@ -160,7 +163,7 @@ namespace BIT.SOLUTION.DbHepper
         /// tạo đối tượng command
         /// </summary>
         /// <returns></returns>
-        SqlCommand CreateCommand();
+        MySqlCommand CreateCommand();
         /// <summary>
         /// Thông báo giao dịch thành công
         /// </summary>
@@ -213,7 +216,7 @@ namespace BIT.SOLUTION.DbHepper
         /// <param name="cmd"></param>
         /// <param name="paramaterName"></param>
         /// <param name="value"></param>
-        void AddWithValue(SqlCommand cmd, string paramaterName, object value);
+        void AddWithValue(MySqlCommand cmd, string paramaterName, object value);
         /// <summary>
         /// Hàm lấy IDataReader và tự thực hiện đễ lấy dữ liệu
         /// </summary>

@@ -29,7 +29,7 @@ namespace BIT.SOLUTION.DL
         /// <param name="storeProc"></param>
         /// <param name="paramsVal"></param>
         /// <returns></returns>
-        bool ExecuteNoneQuery(string storeProc, params string[] paramsVal);
+        bool ExecuteNoneQuery(string cm, params string[] paramsVal);
         /// <summary>
         /// tra ve gia tri kieu don
         /// </summary>

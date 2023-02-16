@@ -62,7 +62,7 @@ namespace BIT.SOLUTION.DL
                 this._unitOfWork = value;
             }
         }
-        public virtual SqlDataBase DB
+        public virtual MySqlDataBase DB
         {
             get
             {
@@ -146,7 +146,7 @@ namespace BIT.SOLUTION.DL
             DataSet ds = new DataSet();
             try
             {
-                using(SqlCommand cmd = this.UnitOfWork.GetStoreProcCommand(storeProc,paramsVal))
+                using(MySqlCommand cmd = this.UnitOfWork.GetStoreProcCommand(storeProc,paramsVal))
                 {
                     ds = DB.ExcuteDataSet(cmd);
                 }
@@ -158,12 +158,12 @@ namespace BIT.SOLUTION.DL
             return ds;
         }
 
-        public bool ExecuteNoneQuery(string storeProc, params string[] paramsVal)
+        public bool ExecuteNoneQuery(string cm, params string[] paramsVal)
         {
             try
             {
                 bool succes = false;
-                var cmd = UnitOfWork.GetStoreProcCommand(storeProc, paramsVal);
+                var cmd = UnitOfWork.GetCommandText(cm, paramsVal);
                 succes = this.UnitOfWork.ExecuteNoneQueryCmd(cmd);
                 return succes;
             }
@@ -182,7 +182,7 @@ namespace BIT.SOLUTION.DL
         {
             try
             {
-                var cmd = UnitOfWork.GetStoreProcCommand(storeProc, paramsVal);
+                var cmd = UnitOfWork.GetCommandText(storeProc, paramsVal);
                 return this.UnitOfWork.ExecuteScalarCmd(cmd);
             }
             catch (MySqlException se)

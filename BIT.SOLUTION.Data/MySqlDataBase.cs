@@ -182,6 +182,32 @@ namespace BIT.SOLUTION.Data
             return cmd;
         }
         /// <summary>
+        /// Hành động select trong db trả về đối tượng thực thi câu lệnh
+        /// vkdien :24/10/2021
+        /// </summary>
+        /// <param name="storeName"></param>
+        /// <param name="parameterValue"></param>
+        /// <returns></returns>
+        public MySqlCommand GetSCommandText(string cm, object[] parameterValue)
+        {
+            MySqlCommand cmd = new MySqlCommand(cm, this._connection);
+            cmd.CommandType = CommandType.Text;
+            MySqlCommandBuilder.DeriveParameters(cmd);
+            int totalParams = cmd.Parameters.Count;
+            for (int i = 0; i < totalParams; i++)
+            {
+                if (parameterValue[i] != null)
+                {
+                    cmd.Parameters[i].Value = parameterValue[i];
+                }
+                else
+                {
+                    cmd.Parameters[i].Value = DBNull.Value;
+                }
+            }
+            return cmd;
+        }
+        /// <summary>
         ///  Hành động select trong db trả về đối tượng thực thi câu lệnh
         /// vkdien :24/10/2021
         /// </summary>
