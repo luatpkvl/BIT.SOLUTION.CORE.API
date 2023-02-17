@@ -38,7 +38,7 @@ namespace BIT.SOLUTION.DbHepper
                 {
                     if(string.IsNullOrEmpty(this._connectionString))
                     {
-                        this._connectionString = @"server=192.168.1.133;user=root;database=Employee_db;password=rootpw;";// ham get connection
+                        this._connectionString = @"server=103.97.124.229;user=luat;database=Employee_db;password=m-5J1stYuABvhkCO;";// ham get connection
                     }
                     msqlDB = new MySqlDataBase(this._connectionString);
                 }
@@ -57,7 +57,7 @@ namespace BIT.SOLUTION.DbHepper
         {
             if (string.IsNullOrEmpty(this._connectionString))
             {
-                this._connectionString = @"server=192.168.1.133;user=root;database=Employee_db;password=rootpw;"; // Hàm lấy connection
+                this._connectionString = @"server=103.97.124.229;user=luat;database=Employee_db;password=m-5J1stYuABvhkCO;"; // Hàm lấy connection
             }
         }
         public MySqlConnection DbConnection
